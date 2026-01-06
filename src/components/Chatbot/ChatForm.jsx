@@ -18,17 +18,21 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
     setTimeout(() => {
       setChatHistory((history) => [
         ...history,
-        { role: "model", text: "Thinking..." },
+        { role: "model", text: "..." },
       ])
       
+      // Short, direct prompt for human-like responses
       generateBotResponse([
         ...chatHistory,
         {
           role: "user",
-          text: `Using the portfolio details provided, please address this query: ${userMessage}`,
+          text: `[AS ADNAN'S ASSISTANT - BE HUMAN-LIKE] 
+          User said: "${userMessage}"
+          
+          Respond naturally in 1-3 sentences max. Be conversational. End with a question or suggestion. Don't sound like AI.`,
         },
       ])
-    }, 600)
+    }, 400) // Shorter delay
   }
 
   return (
@@ -36,7 +40,7 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
       <input
         ref={inputRef}
         type="text"
-        placeholder="Ask about Adnan's portfolio..."
+        placeholder="Type your message..."
         className="message-input"
         required
       />
